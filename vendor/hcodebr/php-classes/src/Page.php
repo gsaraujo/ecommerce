@@ -12,12 +12,12 @@ class Page {
         "data"=>[]
     ];
 
-    public function __construct($opts = array())//$opts options passed via SLIM
+    public function __construct($opts = array(), $tpl_dir = "/views/")//$opts options passed via SLIM
     {
         $this->options = array_merge($this->defaults,$opts);
         // config of rainTPL 
         $config = array(
-            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"] . "/views/",
+            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"] . $tpl_dir,
             "cache_dir"     => $_SERVER["DOCUMENT_ROOT"] . "/views-cache/",
             "debug"         => true // set to false to improve the speed (throughout the course this is set to false, but I'm setting to true so I can learn more and it can help me with debuging.)
         );
