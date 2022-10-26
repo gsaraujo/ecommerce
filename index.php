@@ -123,7 +123,7 @@ $app->get('/admin/users/:iduser/delete', function($iduser) {
 
 	header("Location: /admin/users");
 	exit;
-	
+
 });
 
 //update users
@@ -162,6 +162,43 @@ $app->post('/admin/users/:iduser', function($iduser) {
 	exit;
 
 });
+
+//forgot password
+$app->get('/admin/forgot', function() {
+
+	$page = new PageAdmin([
+		"header" => false,
+		"footer" => false
+	]);
+
+	$page->setTpl("forgot");
+	
+
+});
+
+//forgot password sending form
+$app->post('/admin/forgot', function() {
+
+	$user = User::getForgot($_POST["email"]);
+
+	header("Location: /admin/forgot/sent");
+	exit;
+});
+
+//confirming the recovery e-mail was sent
+$app->get('/admin/forgot/sent', function() {
+
+	$page = new PageAdmin([
+		"header" => false,
+		"footer" => false
+	]);
+
+	$page->setTpl("forgot-sent");
+	
+
+});
+
+
 
 $app->run();
 
