@@ -3,13 +3,18 @@
 
 use \Hcode\Page;
 use \Hcode\Model\Category;
+use Hcode\Model\Product;
 
 //root folder
 $app->get('/', function() {//root folder, no parameters to routes involved
 
+	$products = Product::listAll();
+
 	$page = new Page();
 
-	$page->setTpl("index");
+	$page->setTpl("index",[
+		"products"=>Product::checkList($products)
+	]);
 
 });
 
