@@ -3,7 +3,9 @@
 
 use \Hcode\Page;
 use \Hcode\Model\Category;
-use Hcode\Model\Product;
+use \Hcode\Model\Product;
+use \Hcode\Model\Cart;
+
 
 //root folder
 $app->get('/', function() {//root folder, no parameters to routes involved
@@ -49,7 +51,6 @@ $app->get('/categories/:idcategory', function($idcategory) {
 });
 
 //products details
-
 $app->get('/products/:desurl', function($desurl) {
 
 	$product = new Product();
@@ -62,6 +63,18 @@ $app->get('/products/:desurl', function($desurl) {
 		'product'=>$product->getValues(),
 		'categories'=>$product->getCategories()
 	]);
+
+});
+
+
+//view cart
+$app->get('/cart', function() {
+
+	$cart = Cart::getFromSession();
+
+	$page = new Page();
+
+	$page->setTpl("cart");
 
 });
 
