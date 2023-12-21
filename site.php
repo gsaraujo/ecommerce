@@ -15,6 +15,7 @@ $app->get('/', function() {//root folder, no parameters to routes involved
 
 	$page = new Page();
 
+
 	$page->setTpl("index",[
 		"products"=>Product::checkList($products)
 	]);
@@ -268,6 +269,77 @@ $app->post("/register", function() {
 	
 	header("Location: /checkout");
 	exit;
+
+
+});
+
+
+//user forgot password
+$app->get('/forgot', function() {
+
+	$page = new Page();
+
+	$page->setTpl("forgot");
+	
+
+});
+
+//user forgot password sending form
+$app->post('/forgot', function() {
+
+	$user = User::getForgot($_POST["email"], false);
+
+	header("Location: /forgot/sent");
+	exit;
+});
+
+//user confirming the recovery e-mail was sent
+$app->get('/forgot/sent', function() {
+
+	$page = new Page();
+
+	$page->setTpl("forgot-sent");
+	
+
+});
+
+
+//user recover page to reset the password
+$app->get('/forgot/reset', function() {
+
+	$user = User::validForgotDecrypt($_GET["code"]);
+
+	$page = new Page();
+
+	$page->setTpl("forgot-reset", array(
+		"name"=>$user["desperson"],
+		"code"=>$_GET["code"]
+	));
+	
+
+});
+
+//user reset password sending form
+$app->post('/forgot/reset', function() {
+
+	$forgot = User::validForgotDecrypt($_POST["code"]);
+
+	User::setForgotUsed($forgot["idrecovery"]);
+
+	$user = new User();
+
+	$user->get((int)$forgot["iduser"]);
+
+	$password = password_hash($_POST["password"],PASSWORD_DEFAULT,[
+		"cost"=>12
+	]);
+
+	$user->setPassword($password);
+
+	$page = new Page();
+
+	$page->setTpl("forgot-reset-success");
+
 
 
 });
