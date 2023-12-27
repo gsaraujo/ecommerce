@@ -172,6 +172,15 @@ class Cart extends Model {
         if ($totals['vlheight'] < 2) $totals['vlheight'] = 2;
         if ($totals['vllength'] < 2) $totals['vllength'] = 16;
 
+        /*temporary solution before fix call ws of freight*/
+        $this->setnrdays(10);
+        $this->setvlfreight(Cart::formatValueToDecimal(25));
+        $this->setdeszipcode($nrzipcode);
+
+        $this->save();
+
+        return 1;
+
         if ($totals['nrqtd'] > 0) {
 
             $qs = http_build_query([
