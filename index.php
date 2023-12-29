@@ -16,6 +16,7 @@ require_once("admin.php");//including admin related routes
 require_once("admin-users.php");//including admin users related routes
 require_once("admin-categories.php");//including admin categories related routes
 require_once("admin-products.php");//including admin products related routes
+require_once("admin-orders.php");//including admin orders related routes
 
 
 $app->run();
