@@ -109,8 +109,6 @@ class Category extends Model {
             'pages'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
         ];
 
-
-
     }
 
     public function addProduct(Product $product)
