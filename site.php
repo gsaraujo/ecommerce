@@ -178,6 +178,9 @@ $app->get("/checkout", function() {
 	if (!$address->getdesaddress())
 		$address->setdesaddress('');
 
+	if (!$address->getdesnumber())
+		$address->setdesnumber('');
+
 	if (!$address->getdescomplement())
 		$address->setdescomplement('');
 
@@ -265,10 +268,6 @@ $app->post("/checkout", function(){
 	$address->save();
 
 	$cart = Cart::getFromSession();
-
-	//var_dump($cart);
-	//var_dump($cart->getCalculateTotal());
-	//exit;
 
 	$totals = $cart->getCalculateTotal();
 
